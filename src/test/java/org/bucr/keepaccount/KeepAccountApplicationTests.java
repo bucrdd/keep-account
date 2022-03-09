@@ -1,4 +1,4 @@
-package or.bucr.keepaccount.web;
+package org.bucr.keepaccount;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

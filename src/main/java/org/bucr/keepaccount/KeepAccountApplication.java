@@ -1,4 +1,4 @@
-package or.bucr.keepaccount.web;
+package org.bucr.keepaccount;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
