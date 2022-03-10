@@ -1,0 +1,14 @@
+CREATE TABLE `user`
+(
+    id            INT(11) NOT NULL PRIMARY KEY,
+    username      VARCHAR(64) NOT NULL,
+    nickname      VARCHAR(64) NULL,
+    password      CHAR(255)   NOT NULL,
+    gender        CHAR(32) NULL,
+    locked        INT(1) NOT NULL DEFAULT 0 COMMENT '0-N, 1-Y',
+    enabled       INT(1) NOT NULL DEFAULT 1 COMMENT '0-N, 1-Y',
+    created_at    TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    modified_at   TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_login_at TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uk_user_username UNIQUE (username)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_GENERAL_CI;
