@@ -1,3 +1,15 @@
+server:
+  port: 18080
 spring:
+  application:
+    name: keep-account
   profiles:
     active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/keep-account?charset=UTF8$userSSL=false
+    username: root
+    password:
+  jpa:
+    generate-ddl: false
+

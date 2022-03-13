@@ -1,4 +1,3 @@
-server:
-  port: 18080
-  servlet:
-    context-path: /keep-account
+spring:
+  jpa:
+    show-sql: true
