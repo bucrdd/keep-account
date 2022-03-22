@@ -47,11 +47,11 @@ public class User implements UserDetails {
 
   private Boolean locked = false;
 
-  private Boolean enable = true;
+  private Boolean enabled = true;
 
-  private LocalDateTime createAt;
+  private LocalDateTime createdAt;
 
-  private LocalDateTime modifiedAt;
+  private LocalDateTime lastModifiedAt;
 
   private LocalDateTime lastLoginAt;
 
@@ -90,6 +90,6 @@ public class User implements UserDetails {
 
   @Override
   public boolean isEnabled() {
-    return enable;
+    return enabled;
   }
 }

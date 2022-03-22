@@ -23,13 +23,13 @@ public abstract class AbstractAuditableEntity<U, PK extends Serializable> extend
   U createdBy;
 
   @CreatedDate
-  LocalDateTime createAt;
+  LocalDateTime createdAt;
 
   @LastModifiedBy
   @ManyToOne
-  @JoinColumn(name = "modified_by")
-  U modifiedBy;
+  @JoinColumn(name = "last_modified_by")
+  U lastModifiedBy;
 
   @LastModifiedDate
-  LocalDateTime modifiedAt;
+  LocalDateTime lastModifiedAt;
 }

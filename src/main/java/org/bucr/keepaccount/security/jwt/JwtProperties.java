@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class JwtProperties {
 
-  private String secretKey = "secret";
+  private String secretKey = "secret-key-for-application";
 
   private Long validateInMs = 3600000L; // 1h
 }

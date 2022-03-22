@@ -4,6 +4,9 @@
 # Log file
 *.log
 
+# application config
+application-*.*
+
 # BlueJ files
 *.ctxt
 

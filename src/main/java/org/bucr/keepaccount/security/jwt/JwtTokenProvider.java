@@ -28,13 +28,17 @@ public class JwtTokenProvider {
 
   private static final String AUTHORITIES_KEY = "roles";
 
-  private JwtProperties jwtProperties;
+  private final JwtProperties jwtProperties;
 
   private SecretKey secretKey;
 
   @PostConstruct public void init() {
     var secret = Base64.getEncoder().encodeToString(jwtProperties.getSecretKey().getBytes());
     secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+  }
+
+  public JwtTokenProvider(JwtProperties jwtProperties) {
+    this.jwtProperties = jwtProperties;
   }
 
   public String createToken(Authentication authentication) {
@@ -50,7 +54,7 @@ public class JwtTokenProvider {
         .addClaims(claims)
         .setIssuedAt(now)
         .setExpiration(validity)
-        .signWith(secretKey, SignatureAlgorithm.ES256)
+        .signWith(secretKey, SignatureAlgorithm.HS256)
         .compact();
   }
 
