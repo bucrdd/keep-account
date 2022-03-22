@@ -1,7 +1,5 @@
 package org.bucr.keepaccount.controller;
 
-import static org.springframework.http.ResponseEntity.ok;
-
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +10,6 @@ import org.bucr.keepaccount.dto.UserDto;
 import org.bucr.keepaccount.entity.User;
 import org.bucr.keepaccount.repository.UserRepository;
 import org.bucr.keepaccount.security.jwt.JwtTokenProvider;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,22 +38,23 @@ public class AuthenticationController {
   private PasswordEncoder passwordEncoder;
 
   @PostMapping("/signin")
-  public ResponseEntity signin(@RequestBody AuthenticationRequest data) {
+  public Map<String, Object> signin(@RequestBody AuthenticationRequest data) {
     try {
       String username = data.getUsername();
-      var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
+      var authentication =
+          authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
       String token = jwtTokenProvider.createToken(authentication);
       Map<String, Object> model = new HashMap<>();
       model.put("username", username);
       model.put("token", token);
-      return ok(model);
+      return model;
     } catch (AuthenticationException e) {
       throw new BadCredentialsException("Invalid username/password supplied.");
     }
   }
 
   @PostMapping("/signup")
-  public ResponseEntity signup(@RequestBody UserDto data) {
+  public User signup(@RequestBody UserDto data) {
     User user = new User();
     user.setUsername(data.getUsername());
     user.setPassword(passwordEncoder.encode(data.getPassword()));
@@ -69,7 +67,7 @@ public class AuthenticationController {
     user.setLastLoginAt(LocalDateTime.now());
     users.save(user);
 
-    return ok(user);
+    return user;
   }
 
 }
