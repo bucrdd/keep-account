@@ -2,7 +2,6 @@ package org.bucr.keepaccount.handler;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -21,6 +20,9 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
   public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
       Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
       ServerHttpResponse response) {
-    return ResponseEntity.ok(body);
+    if (body instanceof ResponseData) {
+      return body;
+    }
+    return ResponseData.success(body);
   }
 }
