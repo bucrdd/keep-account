@@ -1,5 +1,7 @@
 package org.bucr.keepaccount.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 @Slf4j
+@Api(tags = "鉴权模块")
 public class AuthenticationController {
 
   @Resource
@@ -37,6 +40,7 @@ public class AuthenticationController {
   @Resource
   private PasswordEncoder passwordEncoder;
 
+  @ApiOperation("登录")
   @PostMapping("/signin")
   public Map<String, Object> signin(@RequestBody AuthenticationRequest data) {
     try {
@@ -53,6 +57,7 @@ public class AuthenticationController {
     }
   }
 
+  @ApiOperation("注册")
   @PostMapping("/signup")
   public User signup(@RequestBody UserDto data) {
     User user = new User();

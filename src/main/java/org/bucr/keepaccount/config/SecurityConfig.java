@@ -10,6 +10,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,6 +26,8 @@ public class SecurityConfig {
         httpBasic().disable()
         .csrf().disable()
         .authorizeHttpRequests()
+        .antMatchers("/favicon.ico").permitAll()
+        .antMatchers("/doc.html", "/webjars/**", "/swagger-resources/**", "/v2/api-docs/**").permitAll()
         .antMatchers("/auth/signin").permitAll()
         .antMatchers("/auth/signup").permitAll()
         .anyRequest().authenticated()

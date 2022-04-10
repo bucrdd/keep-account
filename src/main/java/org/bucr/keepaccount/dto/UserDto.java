@@ -18,8 +18,6 @@ public class UserDto {
 
   private Boolean enabled;
 
-  private String lastLoginIp;
-
   public Boolean isEnabled() {
     return enabled;
   }
