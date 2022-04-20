@@ -1,5 +1,7 @@
 package org.bucr.keepaccount.handler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -11,15 +13,21 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @RestControllerAdvice(basePackages = "org.bucr.keepaccount.controller")
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
 
+  ObjectMapper objectMapper = new ObjectMapper();
+
   @Override
   public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
     return true;
   }
 
+  @SneakyThrows
   @Override
   public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
       Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
       ServerHttpResponse response) {
+    if (body instanceof java.lang.String) {
+      return objectMapper.writeValueAsString(ResponseData.success(body));
+    }
     if (body instanceof ResponseData) {
       return body;
     }

@@ -1,6 +1,7 @@
 package org.bucr.keepaccount.config;
 
 import org.bucr.keepaccount.repository.UserRepository;
+import org.bucr.keepaccount.security.RestAccessDeniedHandler;
 import org.bucr.keepaccount.security.jwt.JwtSecurityConfigurer;
 import org.bucr.keepaccount.security.jwt.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +11,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,18 +22,21 @@ public class SecurityConfig {
 
   @Bean
   SecurityFilterChain springWebFilterChain(HttpSecurity http, JwtTokenProvider tokenProvider) throws Exception {
-    return http.
-        httpBasic().disable()
+    return http
+        .httpBasic().disable()
         .csrf().disable()
         .authorizeHttpRequests()
         .antMatchers("/favicon.ico").permitAll()
         .antMatchers("/doc.html", "/webjars/**", "/swagger-resources/**", "/v2/api-docs/**").permitAll()
-        .antMatchers("/auth/signin").permitAll()
+        .antMatchers("/auth/login").permitAll()
         .antMatchers("/auth/signup").permitAll()
         .anyRequest().authenticated()
         .and()
         .apply(new JwtSecurityConfigurer(tokenProvider))
-        .and().build();
+        .and()
+        .exceptionHandling().accessDeniedHandler(new RestAccessDeniedHandler())
+        .and()
+        .build();
   }
 
   @Bean
