@@ -41,7 +41,7 @@ public class AuthenticationController {
   private PasswordEncoder passwordEncoder;
 
   @ApiOperation("登录")
-  @PostMapping("/signin")
+  @PostMapping("/login")
   public Map<String, Object> signin(@RequestBody AuthenticationRequest data) {
     try {
       String username = data.getUsername();
