@@ -25,7 +25,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     ResponseData<String> responseData = new ResponseData<>();
     responseData.setMessage(authException.getMessage());
-    responseData.setCode(ReturnCode.FORBIDDEN_ERROR.getCode());
+    responseData.setCode(ReturnCode.UNAUTHORIZED_ERROR.getCode());
     response.getWriter().print(objectMapper.writeValueAsString(responseData));
   }
 }

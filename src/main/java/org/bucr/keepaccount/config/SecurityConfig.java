@@ -2,6 +2,7 @@ package org.bucr.keepaccount.config;
 
 import org.bucr.keepaccount.repository.UserRepository;
 import org.bucr.keepaccount.security.RestAccessDeniedHandler;
+import org.bucr.keepaccount.security.jwt.JwtAuthenticationEntryPoint;
 import org.bucr.keepaccount.security.jwt.JwtSecurityConfigurer;
 import org.bucr.keepaccount.security.jwt.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
@@ -30,11 +31,14 @@ public class SecurityConfig {
         .antMatchers("/doc.html", "/webjars/**", "/swagger-resources/**", "/v2/api-docs/**").permitAll()
         .antMatchers("/auth/login").permitAll()
         .antMatchers("/auth/signup").permitAll()
+        .antMatchers("/role/list").hasRole("ADMIN")
         .anyRequest().authenticated()
         .and()
         .apply(new JwtSecurityConfigurer(tokenProvider))
         .and()
-        .exceptionHandling().accessDeniedHandler(new RestAccessDeniedHandler())
+        .exceptionHandling()
+        .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+        .accessDeniedHandler(new RestAccessDeniedHandler())
         .and()
         .build();
   }

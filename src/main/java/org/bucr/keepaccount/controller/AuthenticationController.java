@@ -28,25 +28,23 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "鉴权模块")
 public class AuthenticationController {
 
-  @Resource
-  private AuthenticationManager authenticationManager;
+  @Resource private AuthenticationManager authenticationManager;
 
-  @Resource
-  private JwtTokenProvider jwtTokenProvider;
+  @Resource private JwtTokenProvider jwtTokenProvider;
 
-  @Resource
-  private UserRepository users;
+  @Resource private UserRepository users;
 
-  @Resource
-  private PasswordEncoder passwordEncoder;
+  @Resource private PasswordEncoder passwordEncoder;
 
   @ApiOperation("登录")
   @PostMapping("/login")
-  public Map<String, Object> signin(@RequestBody AuthenticationRequest data) {
+  public Map<String, Object> login(@RequestBody AuthenticationRequest data) {
     try {
       String username = data.getUsername();
-      var authentication =
-          authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
+      User user = users.findByUsername(data.getUsername())
+          .orElseThrow(() -> new BadCredentialsException("Invalid username/password supplied."));
+      var authentication = authenticationManager.authenticate(
+          new UsernamePasswordAuthenticationToken(username, data.getPassword(), user.getAuthorities()));
       String token = jwtTokenProvider.createToken(authentication);
       Map<String, Object> model = new HashMap<>();
       model.put("username", username);
