@@ -113,25 +113,6 @@
           <fork>true</fork>
         </configuration>
       </plugin>
-<!--      <plugin>-->
-<!--        <groupId>org.apache.maven.plugins</groupId>-->
-<!--        <artifactId>maven-compiler-plugin</artifactId>-->
-<!--        <version>3.8.1</version>-->
-<!--        <configuration>-->
-<!--          <annotationProcessorPaths>-->
-<!--            <path>-->
-<!--              <groupId>org.mapstruct</groupId>-->
-<!--              <atifactId>mapstruct-processor</atifactId>-->
-<!--              <version>${org.mapstruct.version}</version>-->
-<!--            </path>-->
-<!--          </annotationProcessorPaths>-->
-<!--          <showWarnings>true</showWarnings>-->
-<!--          <compilerArgs>-->
-<!--            <arg>-Amapstruct.verbose=true</arg>-->
-<!--            <arg>-Amapstruct.defaultComponentModel=spring</arg>-->
-<!--          </compilerArgs>-->
-<!--        </configuration>-->
-<!--      </plugin>-->
     </plugins>
   </build>
 
