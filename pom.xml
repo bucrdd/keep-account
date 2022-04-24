@@ -19,6 +19,7 @@
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <jjwt.version>0.11.2</jjwt.version>
+    <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
     <knife4j.version>3.0.3</knife4j.version>
   </properties>
 
@@ -54,6 +55,16 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct</artifactId>
+      <version>${org.mapstruct.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct-processor</artifactId>
+      <version>${org.mapstruct.version}</version>
     </dependency>
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
@@ -102,6 +113,25 @@
           <fork>true</fork>
         </configuration>
       </plugin>
+<!--      <plugin>-->
+<!--        <groupId>org.apache.maven.plugins</groupId>-->
+<!--        <artifactId>maven-compiler-plugin</artifactId>-->
+<!--        <version>3.8.1</version>-->
+<!--        <configuration>-->
+<!--          <annotationProcessorPaths>-->
+<!--            <path>-->
+<!--              <groupId>org.mapstruct</groupId>-->
+<!--              <atifactId>mapstruct-processor</atifactId>-->
+<!--              <version>${org.mapstruct.version}</version>-->
+<!--            </path>-->
+<!--          </annotationProcessorPaths>-->
+<!--          <showWarnings>true</showWarnings>-->
+<!--          <compilerArgs>-->
+<!--            <arg>-Amapstruct.verbose=true</arg>-->
+<!--            <arg>-Amapstruct.defaultComponentModel=spring</arg>-->
+<!--          </compilerArgs>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
     </plugins>
   </build>
 
